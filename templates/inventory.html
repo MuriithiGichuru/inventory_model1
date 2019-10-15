@@ -1,0 +1,118 @@
+{% extends 'base.html' %}
+
+{% block title %}inventory{% endblock %}
+
+{% block content %}
+
+    <br>
+
+<!-- Button trigger modal -->
+<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+  Add inventory
+</button>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+
+          <form action="/inventory" method="POST">
+
+              <div class="form-group">
+                <label for="exampleInputEmail1">name</label>
+                <input name="name" type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="First name">
+              </div>
+
+              <div class="form-group">
+                <label for="exampleFormControlSelect1">Select type</label>
+                <select name="type" class="form-control" id="exampleFormControlSelect1">
+                  <option value="P">Product</option>
+                  <option value="S">Service</option>
+                </select>
+              </div>
+
+
+              <div class="form-group">
+                <label for="exampleInputEmail1">buying_price</label>
+                <input name="buying_price" type="int" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="2000">
+              </div>
+
+              <div class="form-group">
+                <label for="exampleInputEmail1">selling_price</label>
+                <input name="selling_price" type="int" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="2000">
+              </div>
+
+              <div class="form-group">
+                <label for="exampleInputEmail1">stock</label>
+                <input name="stock" type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="stock name">
+              </div>
+
+              <div class="form-group">
+                <label for="exampleInputEmail1">serial_number</label>
+                <input name="serial_number" type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="serial number">
+              </div>
+
+              <div class="form-group">
+                <label for="exampleInputEmail1">reorder_point</label>
+                <input name="reorder_point" type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="reorder point">
+              </div>
+
+
+              <button type="submit" class="btn btn-primary">Submit</button>
+          </form>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+    <br>
+
+
+    <table class="table">
+        <thead class="thead-dark">
+        <tr>
+
+
+            <th scope="col">ID</th>
+            <th scope="col">Name</th>
+            <th scope="col">Type</th>
+            <th scope="col">Buying Price</th>
+            <th scope="col">Selling price</th>
+            <th scope="col">Stock</th>
+            <th scope="col">Serial Number</th>
+            <th scope="col">Reorder Point</th>
+
+        </tr>
+        </thead>
+        <tbody>
+
+        <ul class="list-group">
+            {% for i in x %}
+                <tr>
+                    <th scope="row">{{i.id}}</th>
+
+                    <td>{{ i.name }}</td>
+                    <td>{{ i.type }}</td>
+                    <td>{{ i.buying_price }}</td>
+                    <td>{{ i.selling_price }}</td>
+                    <td>{{ i.stock }}</td>
+                    <td>{{ i.serial_number }}</td>
+                    <td>{{ i.reorder_point }}</td>
+                </tr>
+
+            {% endfor %}
+
+
+        </ul>
+        </tbody>
+    </table>
+
+{% endblock %}
