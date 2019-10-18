@@ -51,7 +51,7 @@
 
               <div class="form-group">
                 <label for="exampleInputEmail1">stock</label>
-                <input name="stock" type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="stock name">
+                <input name="stock" type="int" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="stock left">
               </div>
 
               <div class="form-group">
@@ -89,6 +89,8 @@
             <th scope="col">Stock</th>
             <th scope="col">Serial Number</th>
             <th scope="col">Reorder Point</th>
+            <th scope="col">Sale</th>
+            <th scope="col">View Sales</th>
 
         </tr>
         </thead>
@@ -106,6 +108,57 @@
                     <td>{{ i.stock }}</td>
                     <td>{{ i.serial_number }}</td>
                     <td>{{ i.reorder_point }}</td>
+                    <td>
+                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal{{ i.id }}">
+                            Sell
+                        </button>
+
+                        <!-- Modal -->
+                        <div class="modal fade" id="exampleModal{{ i.id }}" tabindex="-1" role="dialog"
+                             aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+
+                                        <form action="/sales" method="POST">
+
+                                            <div class="form-group">
+                                                <label for="exampleInputEmail1">Quantity</label>
+                                                <input name="quantity" type="text" class="form-control"
+                                                       id="exampleInputEmail1" aria-describedby="emailHelp"
+                                                       placeholder="sale Quantity">
+                                            </div>
+
+
+                                            <div class="form-group">
+                                                <label for="exampleInputEmail1">Inventory ID</label>
+                                                <input name="inventory_id" type="hidden" value ="{{ i.id }}" class="form-control">
+                                            </div>
+
+                                            <button type="submit" class="btn btn-primary">Submit</button>
+
+                                        </form>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+
+                    </td>
+                    <td>
+
+                        <a class="btn btn-primary" href="/view_sales" role="button">View sales Record</a>
+                     </td>
+
+
                 </tr>
 
             {% endfor %}
