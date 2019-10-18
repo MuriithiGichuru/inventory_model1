@@ -15,7 +15,7 @@ from models.sales import SalesModel
 
 @app.before_first_request
 def create_table():
-    db.create_all()  #
+    db.create_all() #
 
 
 @app.route('/')
@@ -65,13 +65,13 @@ def inventory():
     return render_template('inventory.html', x=inv)
 
 
-@app.route('/sales', methods=['GET', 'POST'])
+@app.route('/sales', methods=['POST'])
 def sales():
     s = SalesModel.query.all()
 
     if request.method == 'POST':
         quantity = request.form['quantity']
-        inventory_id = request.form['inventory_id']
+        inventory_id= request.form['inventory_id']
 
         # print(quantity)
         # print(inventory_id)
@@ -79,16 +79,30 @@ def sales():
         sa = SalesModel(quantity=quantity, inventory_id=int(inventory_id))
         sa.create_record()
 
-        return redirect(url_for('sales'))
+        InventoryModel.update_stock(int(inventory_id),int(quantity))
 
 
-    return render_template('sales.html', y=s)
+
+        print('sale suceesfully made')
+        return redirect(url_for('inventory'))
 
 
-@app.route('/view_sales')
-def view_sales():
+    return redirect(url_for('inventory'))
 
-    return render_template('view_sales.html')
+
+@app.route('/view_sales/<int:id>',methods = ['GET'])
+def view_sales(id):
+    inve = InventoryModel.get_inventory_by_id(id)
+
+    #print(inve.sale)
+    #print(type(inve))
+
+    sale_of_product = inve.sale
+
+    return render_template('sales.html',s_o_p=sale_of_product)
+
+
+
 
 if __name__ == '__main__':
     app.run(debug=True)

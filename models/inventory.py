@@ -15,7 +15,7 @@ class InventoryModel(db.Model):
     selling_price = db.Column(db.Integer, nullable=False)
     stock = db.Column(db.Integer, nullable=False)
     serial_number = db.Column(db.String, nullable=False)
-    reorder_point = db.Column(db.String, nullable=False)
+    reorder_point = db.Column(db.Integer, nullable=False)
     sale = db.relationship('SalesModel', backref='inventory', lazy=True)
 
     # create
@@ -29,8 +29,20 @@ class InventoryModel(db.Model):
     # def fetch_all(cls):
     #     return cls.query.all()
 
+    @classmethod
+    def get_inventory_by_id(cls,id):
+        return InventoryModel.query.filter_by(id=id).first()
 
 
+
+#we first need to fetch the stock that is being updated. here you update stock, and pass in the id and quantity
+    @classmethod
+    def update_stock(cls,id,quantity):
+        record = InventoryModel.query.filter_by(id=id).first()
+        if record:
+            record.stock=record.stock-quantity
+            db.session.commit()
+            return True
 
 
 

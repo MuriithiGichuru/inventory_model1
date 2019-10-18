@@ -12,7 +12,7 @@
 
             <th scope="col">Sales ID</th>
             <th scope="col">Quantity</th>
-            <th scope="col">Sales Record</th>
+
 
 
         </tr>
@@ -20,20 +20,16 @@
         <tbody>
 
         <ul class="list-group">
-            {% for i in y %}
+        {% for i in s_o_p %}
                 <tr>
-                    <th scope="row">{{i.id}}</th>
-
-                    <td>{{ i.quantity }}</td>
-                    <td>
-                        <a class="btn btn-primary" href="/view_sales" role="button">View sales Record</a>
-                     </td>
+                    <th scope="row">{{ i.id }}</th>
+                    <th scope="row">{{ i.quantity }}</th>
 
 
 
                 </tr>
+        {% endfor %}
 
-            {% endfor %}
 
 
         </ul>

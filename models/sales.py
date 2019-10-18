@@ -20,10 +20,12 @@ class SalesModel(db.Model):
         db.session.add(self)
         db.session.commit()
 
-    #
+
     # @classmethod
     # def fetch_all(cls):
     #     return cls.query.all()
+
+
 
 
 

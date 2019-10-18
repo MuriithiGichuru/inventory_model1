@@ -105,7 +105,10 @@
                     <td>{{ i.type }}</td>
                     <td>{{ i.buying_price }}</td>
                     <td>{{ i.selling_price }}</td>
-                    <td>{{ i.stock }}</td>
+# we need to update this flashing message as there is an issue between the str and int. dable has to be dropped
+                    <td {% if (i.stock > i.reorder_point)%} class="bg-success" {% else %}
+                    class="bg-danger" {% endif %}>
+                        {{ i.stock }}</td>
                     <td>{{ i.serial_number }}</td>
                     <td>{{ i.reorder_point }}</td>
                     <td>
@@ -155,7 +158,7 @@
                     </td>
                     <td>
 
-                        <a class="btn btn-primary" href="/view_sales" role="button">View sales Record</a>
+                        <a class="" href="/view_sales/{{ i.id }}">View sales Record</a>
                      </td>
 
 
@@ -169,3 +172,4 @@
     </table>
 
 {% endblock %}
+
